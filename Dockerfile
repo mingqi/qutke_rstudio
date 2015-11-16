@@ -1,5 +1,4 @@
-FROM index.alauda.cn/oilbeater/rstudio
-#FROM rocker/rstudio
+FROM rocker/rstudio
 
 ## this is required environment variable for create a user
 ENV USERID 1001
