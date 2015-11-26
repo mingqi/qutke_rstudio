@@ -6,7 +6,12 @@ ENV USERID 1001
 # install qutke SDK
 RUN apt-get update && apt-get install -y \
 	libssl1.0.0 \
-	libxml2-dev
+	libxml2-dev \
+	nodejs \
+	npm
+
+RUN apt-get update && apt-get install -y python-pip
+RUN pip install supervisor-stdout
 
 RUN echo 'install.packages("devtools")' | r - \
   && echo 'install.packages("RJSONIO")' | r - \
@@ -18,8 +23,6 @@ RUN echo 'options(repos = list(CRAN = "https://ccran.rstudio.com/"))' >> /etc/R/
 
 
 # install script which to backup and recovery customer data
-RUN apt-get update && apt-get install -y python-pip
-RUN pip install supervisor-stdout
 ADD . /qutke
 RUN cat /qutke/mgr_customer_data.conf >> /etc/supervisor/conf.d/supervisord.conf
 
